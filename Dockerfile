@@ -10,11 +10,12 @@ COPY src /var/www/html
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
     && apk add --update --no-cache tar nginx mysql mysql-client \
     && mkdir /run/nginx \
-    # mysql
+    # mysql ext
     && docker-php-source extract \
     && docker-php-ext-install mysql \
     && docker-php-ext-install mysqli \
     && docker-php-source delete \
+    # init mysql
     && mysql_install_db --user=mysql --datadir=/var/lib/mysql \
     && sh -c 'mysqld_safe &' \
     && sleep 5s \
