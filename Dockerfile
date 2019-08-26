@@ -1,7 +1,6 @@
 FROM php:5.6-fpm-alpine
 
 LABEL Organization="CTFTraining" Author="Virink <virink@outlook.com>"
-
 MAINTAINER Virink@CTFTraining <virink@outlook.com>
 
 COPY _files /tmp/
@@ -12,8 +11,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     && mkdir /run/nginx \
     # mysql ext
     && docker-php-source extract \
-    && docker-php-ext-install mysql \
-    && docker-php-ext-install mysqli \
+    && docker-php-ext-install mysql mysqli pdo_mysql \
     && docker-php-source delete \
     # init mysql
     && mysql_install_db --user=mysql --datadir=/var/lib/mysql \
